@@ -8,6 +8,7 @@ extern "C" {
 void sidewaves();
 void fireworks();
 void ball();
+void cube_color_wheel();
 
 #ifdef __cplusplus
 }  // extern "C"
