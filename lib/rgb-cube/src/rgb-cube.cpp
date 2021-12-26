@@ -135,12 +135,12 @@ void effect_loop_task(void *arg) {
     }
   }
   xSemaphoreGive(cube_stop_semaphore);
-  vTaskDelete(NULL);
+  vTaskDelay(portMAX_DELAY);
 }
 
 void effect_task(void *arg) {
   effect_t *effect = (effect_t *)arg;
   effect->function();
   xSemaphoreGive(effect_task_semaphore);
-  vTaskDelete(NULL);
+  vTaskDelay(portMAX_DELAY);
 }
