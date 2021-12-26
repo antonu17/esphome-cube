@@ -16,7 +16,7 @@ static bool initialised = false;
 void IRAM_ATTR write_row() {
   static DRAM_ATTR uint8_t previous_row = 0, current_row = 0;
 
-  rgb_t *row = frame_buffer + ((7 - current_row) * 64);
+  rgb_t *row = frame_buffer + current_row * 64;
   for (int i = 0; i < 64; i++) {
     rgb_t px = *row++;
     tlc_set_led(i, px.r, px.g, px.b);
@@ -66,10 +66,9 @@ void init_framebuffer() {
   }
 
   init_tlc();
-}
 
-void start_framebuffer() {
   timer = timerBegin(0, 80, true);
+  timerStop(timer);
   timerAttachInterrupt(timer, &onTimer, true);
   // Update layers every 1250us
   // 8 * 1250us = 10ms (~100 fps)
@@ -77,11 +76,10 @@ void start_framebuffer() {
   timerAlarmEnable(timer);
 }
 
+void start_framebuffer() { timerStart(timer); }
+
 void stop_framebuffer() {
-  if (timer) {
-    timerEnd(timer);
-    timer = NULL;
-  }
+  timerStop(timer);
 
   for (int i = 0; i < 8; i++) {
     gpio_set_level(rows[i], 0);

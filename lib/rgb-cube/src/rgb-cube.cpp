@@ -45,9 +45,12 @@ void cube_start() {
   if (running) return;
   running = true;
 
-  start_framebuffer();
   xTaskCreatePinnedToCore(effect_loop_task, "effect_loop_task", 2000, NULL,
                           tskIDLE_PRIORITY, &effect_loop_task_h, APP_CPU_NUM);
+  ESP_LOGD(__FILE__, "effect_loop_task started");
+
+  start_framebuffer();
+  ESP_LOGD(__FILE__, "start_framebuffer()");
 }
 
 void cube_stop() {
@@ -63,6 +66,7 @@ void cube_stop() {
   fb_clear();
   vTaskDelay(1);
   stop_framebuffer();
+  ESP_LOGD(__FILE__, "stop_framebuffer()");
 }
 
 void _next_effect() {
