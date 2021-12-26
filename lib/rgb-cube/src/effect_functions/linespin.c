@@ -49,7 +49,7 @@ void linespin() {
     }
     fb_draw_draft();
 
-    vTaskDelay(5);
+    vTaskDelay(3);
   }
   fb_clear();
 }
