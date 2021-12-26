@@ -46,6 +46,8 @@ web_server:
 
 mdns:
 
+api:
+
 switch:
   - platform: template
     id: cube_switch
