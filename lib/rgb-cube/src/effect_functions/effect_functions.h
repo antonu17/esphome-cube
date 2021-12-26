@@ -9,6 +9,7 @@ void sidewaves();
 void fireworks();
 void ball();
 void cube_color_wheel();
+void linespin();
 
 #ifdef __cplusplus
 }  // extern "C"
