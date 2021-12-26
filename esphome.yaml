@@ -1,0 +1,108 @@
+esphome:
+  name: rgb-cube
+  platform: ESP32
+  board: nodemcu-32s
+  includes:
+  - lib/rgb-cube/src/rgb-cube.h
+  libraries:
+  - Preferences
+  - rgb-cube=file:///Users/anton/Documents/PlatformIO/Projects/esp32-arduino/lib/rgb-cube
+  platformio_options:
+    platform: https://github.com/platformio/platform-espressif32.git#feature/arduino-upstream
+    platform_packages:
+    - framework-arduinoespressif32 @ https://github.com/espressif/arduino-esp32.git#2.0.2
+    build_flags:
+    - -DCORE_DEBUG_LEVEL=5
+  on_boot:
+  - priority: 600
+    then:
+    - lambda: |-
+        ESP_LOGI("esphome", "Resotred cube_switch state value is: %d", id(cube_switch).state);
+        ESP_LOGI("esphome", "Resotred effect_timeout state value is: %d", id(effect_timeout).state);
+        ESP_LOGI("esphome", "Resotred brightness state value is: %d", id(brightness).state);
+        cube_init();
+        cube_effect_timeout(id(effect_timeout).state);
+        cube_set_brightness(id(brightness).state);
+        if (id(cube_switch).state) {
+          cube_start();
+        }
+
+logger:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+ota:
+  password: ''
+  on_begin:
+    then:
+      - lambda: |-
+          ESP_LOGI("ota", "OTA start, stopping cube...");
+          cube_stop();
+
+web_server:
+  port: 80
+
+mdns:
+
+switch:
+  - platform: template
+    id: cube_switch
+    restore_state: true
+    optimistic: true
+    name: Cube Switch
+    turn_on_action:
+      then:
+        - lambda: |-
+            cube_start();
+    turn_off_action:
+      then:
+        - lambda: |-
+            cube_stop();
+
+button:
+  - platform: restart
+    name: Cube Restart
+  - platform: template
+    name: Prev Effect
+    on_press:
+    - then:
+      - lambda: |-
+          cube_prev_effect();
+
+  - platform: template
+    name: Next Effect
+    on_press:
+    - then:
+      - lambda: |-
+          cube_next_effect();
+
+number:
+  - platform: template
+    id: effect_timeout
+    name: Cube Effect Timeout
+    restore_value: true
+    optimistic: true
+    min_value: 0
+    max_value: 60
+    step: 1
+    initial_value: 15.0
+    set_action:
+      then:
+        - lambda: |-
+            cube_effect_timeout(x);
+
+  - platform: template
+    id: brightness
+    name: Cube Brightness
+    restore_value: true
+    optimistic: true
+    min_value: 0.0
+    max_value: 255.0
+    step: 1.0
+    initial_value: 10.0
+    set_action:
+      then:
+      - lambda: |-
+          cube_set_brightness(x);
