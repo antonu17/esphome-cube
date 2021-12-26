@@ -34,6 +34,7 @@ void cube_init() {
 
   effects.push_back(effect_new("fireworks", fireworks, NULL));
   effects.push_back(effect_new("sidewaves", sidewaves, NULL));
+  effects.push_back(effect_new("ball", ball, NULL));
   effect_task_semaphore = xSemaphoreCreateBinary();
   cube_stop_semaphore = xSemaphoreCreateBinary();
   init_framebuffer();

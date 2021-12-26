@@ -7,6 +7,7 @@ extern "C" {
 
 void sidewaves();
 void fireworks();
+void ball();
 
 #ifdef __cplusplus
 }  // extern "C"
