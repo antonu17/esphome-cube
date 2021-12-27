@@ -17,6 +17,7 @@ void shift_suspend();
 void sinelines();
 void vertical_travelers();
 void wave_color_wheel();
+void wireframes();
 
 #ifdef __cplusplus
 }  // extern "C"

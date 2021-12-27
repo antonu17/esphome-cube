@@ -41,6 +41,7 @@ void cube_init() {
   effects.push_back(effect_new("sinelines", sinelines, NULL));
   effects.push_back(effect_new("vertical_travelers", vertical_travelers, NULL));
   effects.push_back(effect_new("wave_color_wheel", wave_color_wheel, NULL));
+  effects.push_back(effect_new("wireframes", wireframes, NULL));
 
   preferences.begin("rgbcube", false);
   running_effect_idx = preferences.getUInt(RUNNING_EFFECT_IDX, 0);
