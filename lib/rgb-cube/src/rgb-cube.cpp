@@ -35,6 +35,7 @@ void cube_init() {
   effects.push_back(effect_new("fireworks", fireworks, NULL));
   effects.push_back(effect_new("sidewaves", sidewaves, NULL));
   effects.push_back(effect_new("ball", ball, NULL));
+  effects.push_back(effect_new("shift_suspend", shift_planes, NULL));
   effects.push_back(effect_new("cube_color_wheel", cube_color_wheel, NULL));
   effects.push_back(effect_new("linespin", linespin, NULL));
   effects.push_back(effect_new("rain", rain, NULL));
