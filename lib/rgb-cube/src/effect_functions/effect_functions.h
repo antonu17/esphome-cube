@@ -15,6 +15,7 @@ void ripples();
 void shift_planes();
 void shift_suspend();
 void sinelines();
+void vertical_travelers();
 
 #ifdef __cplusplus
 }  // extern "C"

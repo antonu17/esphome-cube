@@ -39,6 +39,7 @@ void cube_init() {
   effects.push_back(effect_new("ripples", ripples, NULL));
   effects.push_back(effect_new("shift_planes", shift_planes, NULL));
   effects.push_back(effect_new("sinelines", sinelines, NULL));
+  effects.push_back(effect_new("vertical_travelers", vertical_travelers, NULL));
 
   preferences.begin("rgbcube", false);
   running_effect_idx = preferences.getUInt(RUNNING_EFFECT_IDX, 0);
