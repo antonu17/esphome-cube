@@ -29,13 +29,6 @@ void cube_init() {
   if (initialized) return;
   initialized = true;
 
-  preferences.begin("rgbcube", false);
-  running_effect_idx = preferences.getUInt(RUNNING_EFFECT_IDX, 0);
-  if (running_effect_idx >= effects.size()) {
-    running_effect_idx = effects.size() - 1;
-    preferences.putUInt(RUNNING_EFFECT_IDX, running_effect_idx);
-  }
-
   effects.push_back(effect_new("fireworks", fireworks, NULL));
   effects.push_back(effect_new("sidewaves", sidewaves, NULL));
   effects.push_back(effect_new("ball", ball, NULL));
@@ -45,6 +38,14 @@ void cube_init() {
   effects.push_back(effect_new("rain", rain, NULL));
   effects.push_back(effect_new("ripples", ripples, NULL));
   effects.push_back(effect_new("shift_planes", shift_planes, NULL));
+  effects.push_back(effect_new("sinelines", sinelines, NULL));
+
+  preferences.begin("rgbcube", false);
+  running_effect_idx = preferences.getUInt(RUNNING_EFFECT_IDX, 0);
+  if (running_effect_idx >= effects.size()) {
+    running_effect_idx = effects.size() - 1;
+    preferences.putUInt(RUNNING_EFFECT_IDX, running_effect_idx);
+  }
 
   effect_task_semaphore = xSemaphoreCreateBinary();
   cube_stop_semaphore = xSemaphoreCreateBinary();

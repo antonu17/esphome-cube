@@ -14,6 +14,7 @@ void rain();
 void ripples();
 void shift_planes();
 void shift_suspend();
+void sinelines();
 
 #ifdef __cplusplus
 }  // extern "C"
