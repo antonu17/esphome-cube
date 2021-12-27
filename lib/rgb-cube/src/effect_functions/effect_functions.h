@@ -10,6 +10,7 @@ void fireworks();
 void ball();
 void cube_color_wheel();
 void linespin();
+void rain();
 
 #ifdef __cplusplus
 }  // extern "C"
