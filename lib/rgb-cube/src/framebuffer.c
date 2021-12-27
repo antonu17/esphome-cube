@@ -69,7 +69,7 @@ void init_framebuffer() {
 
   timer = timerBegin(0, 80, true);
   timerStop(timer);
-  timerAttachInterrupt(timer, &onTimer, true);
+  timerAttachInterrupt(timer, &onTimer, false);
   // Update layers every 1250us
   // 8 * 1250us = 10ms (~100 fps)
   timerAlarmWrite(timer, 1250, true);
