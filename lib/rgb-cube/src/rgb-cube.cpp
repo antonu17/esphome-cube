@@ -31,6 +31,10 @@ void cube_init() {
 
   preferences.begin("rgbcube", false);
   running_effect_idx = preferences.getUInt(RUNNING_EFFECT_IDX, 0);
+  if (running_effect_idx >= effects.size()) {
+    running_effect_idx = effects.size() - 1;
+    preferences.putUInt(RUNNING_EFFECT_IDX, running_effect_idx);
+  }
 
   effects.push_back(effect_new("fireworks", fireworks, NULL));
   effects.push_back(effect_new("sidewaves", sidewaves, NULL));
