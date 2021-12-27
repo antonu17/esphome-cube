@@ -153,6 +153,7 @@ void effect_loop_task(void *arg) {
 void effect_task(void *arg) {
   effect_t *effect = (effect_t *)arg;
   effect->function();
+  if (effect_timeout_ms) _next_effect();
   xSemaphoreGive(effect_task_semaphore);
   vTaskDelay(portMAX_DELAY);
 }
