@@ -16,6 +16,7 @@ void shift_planes();
 void shift_suspend();
 void sinelines();
 void vertical_travelers();
+void wave_color_wheel();
 
 #ifdef __cplusplus
 }  // extern "C"
