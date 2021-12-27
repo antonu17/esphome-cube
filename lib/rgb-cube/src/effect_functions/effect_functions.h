@@ -12,6 +12,7 @@ void cube_color_wheel();
 void linespin();
 void rain();
 void ripples();
+void shift_planes();
 
 #ifdef __cplusplus
 }  // extern "C"
