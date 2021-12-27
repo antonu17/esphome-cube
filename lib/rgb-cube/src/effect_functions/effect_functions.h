@@ -11,6 +11,7 @@ void ball();
 void cube_color_wheel();
 void linespin();
 void rain();
+void ripples();
 
 #ifdef __cplusplus
 }  // extern "C"

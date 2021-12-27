@@ -38,6 +38,7 @@ void cube_init() {
   effects.push_back(effect_new("cube_color_wheel", cube_color_wheel, NULL));
   effects.push_back(effect_new("linespin", linespin, NULL));
   effects.push_back(effect_new("rain", rain, NULL));
+  effects.push_back(effect_new("ripples", ripples, NULL));
 
   effect_task_semaphore = xSemaphoreCreateBinary();
   cube_stop_semaphore = xSemaphoreCreateBinary();
