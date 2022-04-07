@@ -6,6 +6,7 @@ esphome:
   - lib/rgb-cube/src/rgb-cube.h
   libraries:
   - Preferences
+  - kosme/arduinoFFT
   - rgb-cube=file:///Users/anton/Documents/PlatformIO/Projects/esp32-arduino/lib/rgb-cube
   platformio_options:
     platform: https://github.com/platformio/platform-espressif32.git#feature/arduino-upstream

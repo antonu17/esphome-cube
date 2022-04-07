@@ -1,38 +1,38 @@
 // This file is for debugging purposes
 
+#include <Arduino.h>
+
 #include "esp32-hal-log.h"
 
-#include <Arduino.h>
-#include <WiFi.h>
+TaskHandle_t xTask = NULL;
+SemaphoreHandle_t xSemaphore = NULL;
+int counter = 0;
 
-#include <framebuffer.h>
-#include <effect_functions/effect_functions.h>
-#include <draw.h>
+void counterTask(void *arg) {
+  for (;;) {
+    Serial.printf("in counter loop()\n");
+    xSemaphoreTake(xSemaphore, portMAX_DELAY);
+    counter++;
+    xSemaphoreGive(xSemaphore);
 
-#define LED_PIN 13
+    vTaskDelay(pdMS_TO_TICKS(100));
+  }
+}
 
 void setup() {
-
   Serial.begin(115200);
-  WiFi.begin(WIFI_SSID, WIFI_PASS);
-
-  while (WiFi.status() != WL_CONNECTED) {
-      delay(500);
-      Serial.print(".");
-  }
-
-  Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-  Serial.println(xPortGetCoreID());
-
-
-  ESP_LOGE(TAG, "setup()");
-
-  init_framebuffer();
-  sidewaves();
+  xSemaphore = xSemaphoreCreateBinary();
+  xTaskCreatePinnedToCore(counterTask, "counterTask", 4000, NULL,
+                          tskIDLE_PRIORITY, &xTask, APP_CPU_NUM);
+  xSemaphoreGive(xSemaphore);
+  Serial.printf("setup()\n");
 }
 
 void loop() {
+  Serial.printf("enter loop()\n");
+  xSemaphoreTake(xSemaphore, portMAX_DELAY);
+  Serial.printf("counter: %d\n", counter);
+  xSemaphoreGive(xSemaphore);
+  vTaskDelay(pdMS_TO_TICKS(1000));
+  Serial.printf("exit loop()\n");
 }

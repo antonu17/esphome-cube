@@ -10,6 +10,7 @@
 #include "effect_functions/effect_functions.h"
 #include "effects.h"
 #include "framebuffer.h"
+#include "mic.h"
 #include "tlc59711.h"
 
 std::vector<effect_t *> effects = std::vector<effect_t *>();
@@ -42,6 +43,7 @@ void cube_init() {
   effects.push_back(effect_new("vertical_travelers", vertical_travelers, NULL));
   effects.push_back(effect_new("wave_color_wheel", wave_color_wheel, NULL));
   effects.push_back(effect_new("wireframes", wireframes, NULL));
+  effects.push_back(effect_new("mic_spectrum", mic_spectrum, NULL));
 
   preferences.begin("rgbcube", false);
   running_effect_idx = preferences.getUInt(RUNNING_EFFECT_IDX, 0);
@@ -53,6 +55,7 @@ void cube_init() {
   effect_task_semaphore = xSemaphoreCreateBinary();
   cube_stop_semaphore = xSemaphoreCreateBinary();
   init_framebuffer();
+  i2s_init();
 }
 
 void cube_start() {
